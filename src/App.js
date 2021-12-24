@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useReducer } from 'react'
+import useGet from './assets/useGet'
+
+const url =
+  'https://mymoney-leobtt-default-rtdb.firebaseio.com/movimentacoes.json'
 
 function App() {
+  const data = useGet(url)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>My Money</h1>
+      {data.loading && <p>{JSON.stringify(data)}</p>}
+      {!data.loading && <p>Loading...</p>}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
