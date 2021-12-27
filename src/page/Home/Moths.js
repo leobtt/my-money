@@ -13,23 +13,30 @@ const Months = () => {
 
   if (data.loading) {
     return (
-      <table className="table  table-striped mt-4">
+      <table className="table table-striped mt-4">
         <caption>Previsão financeira</caption>
         <thead>
           <tr>
-            <th scope="col">Mês</th>
+            <th scope="col" className="text-center">
+              Mês
+            </th>
             <th scope="col">Previsão de entrada</th>
             <th scope="col">Entrada</th>
             <th scope="col">Previsão de saída</th>
             <th scope="col">saída</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="align-middle">
           {Object.keys(data.data).map((mes) => {
             return (
               <tr key={mes}>
-                <th scope="row">
-                  <Link to={`movimentacoes/${mes}`}>{mes}</Link>
+                <th scope="row" className="text-center">
+                  <Link
+                    className="text-decoration-none btn btn-primary w-75"
+                    to={`movimentacoes/${mes}`}
+                  >
+                    {mes}
+                  </Link>
                 </th>
                 <td>{data.data[mes].previsao_entrada}</td>
                 <td>{data.data[mes].entrada}</td>
