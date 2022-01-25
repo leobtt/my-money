@@ -8,13 +8,17 @@ const useGet = (url) => {
     data: {},
   })
 
-  useEffect(() => {
+  const show = async () => {
     dispatch({ type: 'REQUEST' })
-    axios
-      .get(url + '.json')
-      .then((res) => dispatch({ type: 'SUCCESS', data: res.data }))
+    const res = await axios.get(url + '.json')
+    dispatch({ type: 'SUCCESS', data: res.data })
+  }
+
+  useEffect(() => {
+    show()
   }, [url])
-  return data
+  // refetch - faz a requisição novamente ao servidor
+  return { ...data, refetch: show }
 }
 
 export default useGet

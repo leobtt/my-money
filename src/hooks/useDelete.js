@@ -10,7 +10,7 @@ const useDelete = () => {
 
   const remove = async (url) => {
     dispatch({ type: 'REQUEST' })
-    await axios.delete(url)
+    await axios.delete(url + '.json')
     dispatch({ type: 'SUCCESS' })
   }
 

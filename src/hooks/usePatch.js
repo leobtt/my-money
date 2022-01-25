@@ -8,13 +8,13 @@ const usePost = (url) => {
     data: {},
   })
 
-  const post = async (data) => {
+  const patch = async (url, data) => {
     dispatch({ type: 'REQUEST' })
-    const dataP = await axios.post(url + '.json', data)
-    dispatch({ type: 'SUCCESSS', data: dataP.data })
+    const dataP = await axios.patch(url + '.json', data)
+    dispatch({ type: 'SUCCESSS' })
   }
 
-  return [data, post]
+  return [data, patch]
 }
 
 export default usePost
