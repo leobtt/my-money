@@ -2,14 +2,16 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import Header from './Components/Header'
-import Home from './page/Home/index'
-import Movimentacoes from './page/Movimentacoes'
+import Home from './pages/Home/index'
+import Login from './pages/Login'
+import Movimentacoes from './pages/Movimentacoes'
 
 function App() {
   return (
     <React.Fragment>
       <Router>
         <Routes>
+          <Route path="/login" element={<Login />} />
           <Route path="" element={<Header />}>
             <Route path="/" element={<Home />} />
             <Route path="/movimentacoes/:data" element={<Movimentacoes />} />
