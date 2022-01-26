@@ -1,27 +1,23 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import useGet from '../hooks/useGet'
-import usePost from '../hooks/usePost'
-import useDelete from '../hooks/useDelete'
-import usePatch from '../hooks/usePatch'
-
-// const baseURL = 'https://mymoney-leobtt-default-rtdb.firebaseio.com/'
-const baseURL = 'https://mymoney-l-default-rtdb.firebaseio.com/'
+import { Navigate } from 'react-router-dom'
+import { useTransactionAPI, useMonthAPI } from '../API'
 
 const Movimentacoes = () => {
+  //gestão de formulário
   const [form, setForm] = useState({
     descricao: '',
     valor: 0,
   })
   const date = useParams().data
 
-  const [removeData, remove] = useDelete()
-  const [dataPost, post] = usePost(`${baseURL}movimentacoes/${date}`)
-  const { loading, data, refetch } = useGet(`${baseURL}movimentacoes/${date}`)
-  const dataMes = useGet(`${baseURL}meses/${date}`)
-  const [dataPatch, patch] = usePatch()
+  //API
+  const { infoMonth, changeMonth } = useMonthAPI(date)
+  const { transaction, removeTransaction, saveTransaction } =
+    useTransactionAPI(date)
 
   const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time))
+
   const save = async () => {
     /* form.valor.search(/^[-]?\d+(\.)?\d+?$/g) >= 0) */
 
@@ -29,22 +25,22 @@ const Movimentacoes = () => {
       !isNaN(form.valor) &&
       form.valor.search(/^[-]?[0-9]+(\.)?[0-9]+?$/g) >= 0
     ) {
-      await post({
+      await saveTransaction({
         ...form,
         valor: parseFloat(form.valor),
       })
-      refetch()
+      transaction.refetch()
       await sleep(5000)
-      dataMes.refetch()
+      infoMonth.refetch()
     }
   }
 
   const doRemove = async (id) => {
-    await remove(`${baseURL}movimentacoes/${date}/${id}`)
+    await removeTransaction(id)
 
-    refetch()
+    transaction.refetch()
     await sleep(5000)
-    dataMes.refetch()
+    infoMonth.refetch()
   }
 
   const getValue =
@@ -60,13 +56,18 @@ const Movimentacoes = () => {
     }
 
   const changeValue = async (evt) => {
-    patch(`${baseURL}meses/${date}`, { [evt.target.name]: evt.target.value })
+    changeMonth({ [evt.target.name]: evt.target.value })
     await sleep(5000)
-    dataMes.refetch()
+    infoMonth.refetch()
+  }
+
+  if (transaction.error === 'Permission denied') {
+    return <Navigate replace to={'/login'} />
   }
 
   return (
     <>
+      {JSON.stringify(transaction.error)}
       <h2 className="mt-5 mb-4">
         Movimentações do mês {date.replace(/^([0-9]+)[-](\d+)/g, '$2/$1')}
       </h2>
@@ -76,14 +77,14 @@ const Movimentacoes = () => {
         </div>
       )} */}
 
-      <p>Entradas: {dataMes?.data.entradas}</p>
+      <p>Entradas: {infoMonth?.data.entradas}</p>
       <p>
-        Previsao de entrada: {dataMes?.data.previsao_entrada}
+        Previsao de entrada: {infoMonth?.data.previsao_entrada}
         <input type="text" onBlur={changeValue} name="previsao_entrada" />
       </p>
-      <p>Saída: {dataMes?.data.saidas}</p>
+      <p>Saída: {infoMonth?.data.saidas}</p>
       <p>
-        Previsao de saída: {dataMes?.data.previsao_saida}
+        Previsao de saída: {infoMonth?.data.previsao_saida}
         <input type="text" onBlur={changeValue} name="previsao_saida" />
       </p>
 
@@ -98,12 +99,12 @@ const Movimentacoes = () => {
         <tbody className="align-middle">
           {/* percorrendo os dados vindo do banco  */}
 
-          {data &&
-            Object.keys(data).map((item) => {
+          {transaction.data &&
+            Object.keys(transaction.data).map((item) => {
               return (
                 <tr key={item}>
-                  <td>{data[item].descricao}</td>
-                  <td>{`R$ ${data[item].valor
+                  <td>{transaction.data[item].descricao}</td>
+                  <td>{`R$ ${transaction.data[item].valor
                     .toFixed(2)
                     .replace(/\./g, ',')}`}</td>
                   <td>
@@ -118,12 +119,12 @@ const Movimentacoes = () => {
                 </tr>
               )
             })}
-          {!loading && (
+          {!transaction.loading && (
             <tr>
               <td>Carregando...</td>
             </tr>
           )}
-          {loading && (
+          {transaction.loading && (
             <tr>
               <td>
                 <input
@@ -152,7 +153,7 @@ const Movimentacoes = () => {
           )}
         </tbody>
       </table>
-      {JSON.stringify(data, null, 2)}
+      {JSON.stringify(transaction.data, null, 2)}
     </>
   )
 }

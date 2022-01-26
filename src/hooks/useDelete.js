@@ -2,15 +2,15 @@ import axios from 'axios'
 import { useReducer } from 'react'
 import reducer from './repeat/reducer'
 
-const useDelete = () => {
+const useDelete = (url) => {
   const [data, dispatch] = useReducer(reducer, {
     loading: false,
     data: {},
   })
 
-  const remove = async (url) => {
+  const remove = async (id) => {
     dispatch({ type: 'REQUEST' })
-    await axios.delete(url + '.json')
+    await axios.delete(url + id + '.json')
     dispatch({ type: 'SUCCESS' })
   }
 

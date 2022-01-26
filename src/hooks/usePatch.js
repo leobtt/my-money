@@ -8,7 +8,7 @@ const usePost = (url) => {
     data: {},
   })
 
-  const patch = async (url, data) => {
+  const patch = async (data) => {
     dispatch({ type: 'REQUEST' })
     const dataP = await axios.patch(url + '.json', data)
     dispatch({ type: 'SUCCESSS' })

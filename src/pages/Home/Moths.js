@@ -1,15 +1,19 @@
 import React from 'react'
 import useGet from '../../hooks/useGet'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 // const baseURL = 'https://mymoney-leobtt-default-rtdb.firebaseio.com/'
 const baseURL = 'https://mymoney-l-default-rtdb.firebaseio.com/'
 
 const Months = () => {
-  const data = useGet(baseURL + 'meses')
+  const data = useGet(`${baseURL}meses`)
 
   if (!data.loading) {
-    return <p className="block">Carregando...</p>
+    if (data.error === 'Permission denied') {
+      console.log(data.error)
+      return <Navigate replace to={'/login'} />
+    }
+    return <p className="block">Carregando...{JSON.stringify(data.error)}</p>
   }
 
   if (data.loading) {
