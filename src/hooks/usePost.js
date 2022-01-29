@@ -15,7 +15,6 @@ const usePost = (url) => {
     dispatch({ type: 'REQUEST' })
     try {
       const res = await axios.post(url, data)
-      console.log('res', res.data)
       if (res.data.error && Object.keys(res.data.error).length > 0) {
         dispatch({ type: 'FAILURE', error: res.data.error.message })
       } else {
