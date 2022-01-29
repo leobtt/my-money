@@ -9,8 +9,11 @@ const Months = () => {
   const data = useGet(`${baseURL}meses`)
 
   if (!data.loading) {
-    if (data.error === 'Permission denied') {
-      console.log(data.error)
+    if (
+      data.error === 'Permission denied' ||
+      data.error === 'Auth token is expired'
+    ) {
+      localStorage.removeItem('token')
       return <Navigate replace to={'/login'} />
     }
     return <p className="block">Carregando...{JSON.stringify(data.error)}</p>

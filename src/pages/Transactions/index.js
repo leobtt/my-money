@@ -22,6 +22,10 @@ const Transactions = () => {
     // infoMonth.refetch()
   }
 
+  if (transaction.error === 'Auth token is expired') {
+    return <Navigate replace to="/login" />
+  }
+
   if (transaction.error === 'Permission denied') {
     return <Navigate replace to={'/login'} />
   }
@@ -76,7 +80,7 @@ const Transactions = () => {
           />
         </tbody>
       </table>
-      {JSON.stringify(transaction.data, null, 2)}
+      {JSON.stringify(transaction, null, 2)}
     </>
   )
 }
