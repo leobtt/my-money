@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from 'react'
 import axios from 'axios'
 import reducer from './repeat/reducer'
+import { getAuth } from './repeat/getAuth'
 
 const useGet = (url) => {
   const [data, dispatch] = useReducer(reducer, {
@@ -11,7 +12,7 @@ const useGet = (url) => {
   const show = async () => {
     dispatch({ type: 'REQUEST' })
     try {
-      const res = await axios.get(url + '.json')
+      const res = await axios.get(url + '.json' + getAuth())
       if (res.data.error && Object.keys(res.data.error).length > 0) {
         dispatch({ type: 'FAILURE', error: res.data.error })
       } else {
