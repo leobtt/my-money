@@ -1,0 +1,34 @@
+.card {
+  background: white;
+  border-radius: 20px;
+  color: black;
+  padding: 2rem 2rem;
+  margin: 0 7px !important;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.flex-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.moneydate p {
+  color: #a2a2a2;
+  font-weight: 200;
+  font-size: 0.75rem;
+}
+
+.ArrowUpwardIcon {
+  color: #3b9654;
+}
+.ArrowDownwardIcon {
+  color: #ff1313;
+}
+.AttachMoneyIcon {
+  color: #9122e8;
+}
