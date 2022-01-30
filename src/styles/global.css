@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&display=swap');
+
+:root {
+  --dark: #251e1e;
+  --purpleDark: #423a46;
+}
+
+* {
+  font-family: 'Outfit', 'sans-serif';
+  box-sizing: border-box;
+  margin: 0 !important;
+}
+
+.text-shadow {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.light {
+  font-weight: 300;
+}

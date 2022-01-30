@@ -2,14 +2,16 @@ import React from 'react'
 import useGet from '../../hooks/useGet'
 import { Link, Navigate } from 'react-router-dom'
 
-// const baseURL = 'https://mymoney-leobtt-default-rtdb.firebaseio.com/'
 const baseURL = 'https://mymoney-l-default-rtdb.firebaseio.com/'
 
 const Months = () => {
   const data = useGet(`${baseURL}meses`)
 
   if (!data.loading) {
-    if (data.error === 'Permission denied') {
+    if (
+      data.error === 'Permission denied' ||
+      data.error === 'Auth token is expired'
+    ) {
       console.log(data.error)
       return <Navigate replace to={'/login'} />
     }
@@ -18,8 +20,7 @@ const Months = () => {
 
   if (data.loading) {
     return (
-      <table className="table table-striped mt-4">
-        <caption>Previsão financeira</caption>
+      <table className="table">
         <thead>
           <tr>
             <th scope="col" className="text-center">

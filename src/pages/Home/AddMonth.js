@@ -8,7 +8,7 @@ const AddMonth = () => {
   const month = []
   const refYear = useRef()
   const refMonth = useRef()
-  for (let i = 2020; i <= getYear; i++) {
+  for (let i = 2021; i <= getYear; i++) {
     year.push(i)
   }
 
@@ -27,23 +27,25 @@ const AddMonth = () => {
 
   return (
     <React.Fragment>
-      <select ref={refMonth}>
-        {month.map((month) => (
-          <option key={month} value={month}>
-            {month}
-          </option>
-        ))}
-      </select>
-      <select ref={refYear}>
-        {year.map((year) => (
-          <option key={year} value={year}>
-            {year}
-          </option>
-        ))}
-      </select>
-      <button onClick={getDate} type="button">
-        Adicionar mês
-      </button>
+      <div className="addMonth">
+        <select ref={refMonth}>
+          {month.map((month) => (
+            <option key={month} value={month}>
+              {month}
+            </option>
+          ))}
+        </select>
+        <select ref={refYear}>
+          {year.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+        <button onClick={getDate} type="button">
+          Adicionar mês
+        </button>
+      </div>
     </React.Fragment>
   )
 }

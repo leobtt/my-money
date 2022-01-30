@@ -2,11 +2,16 @@ import React from 'react'
 import AddMonth from './AddMonth'
 import Months from './Moths'
 
+import './index.css'
+
 const Home = () => {
   return (
-    <div className="container-md py-3">
-      <AddMonth />
-      <Months />
+    <div>
+      <div className="flex-month">
+        <AddMonth />
+
+        <Months />
+      </div>
     </div>
   )
 }
