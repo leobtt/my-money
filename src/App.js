@@ -2,9 +2,9 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import Header from './Components/Header'
-import Home from './pages/Home/index'
+import Analytics from './pages/Analytics'
 import Login from './pages/Login'
-import Transactions from './pages/Transactions'
+import Home from './pages/Home'
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="" element={<Header />}>
             <Route path="/" element={<Home />} />
-            <Route path="/movimentacoes/:data" element={<Transactions />} />
+            <Route path="/movimentacoes/:data" element={<Analytics />} />
           </Route>
         </Routes>
       </Router>
