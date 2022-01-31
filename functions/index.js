@@ -15,14 +15,17 @@ exports.soma = functions.database
     // Para extrair os dados que vem como snapshot - converter
     const movimentacoes = movimentacoesSS.val()
 
-    let entradas = 0
-    let saidas = 0
+    let entradas = (0).toFixed(2)
+    let saidas = (0).toFixed(2)
+    let saldo = (0).toFixed(2)
 
     Object.keys(movimentacoes).forEach((m) => {
-      if (movimentacoes[m].valor > 0) {
+      if (movimentacoes[m].valor > 0 && movimentacoes[m].receita === true) {
+        saldo += movimentacoes[m].valor
         entradas += movimentacoes[m].valor
       } else {
-        saidas += movimentacoes[m].valor
+        saidas -= movimentacoes[m].valor
+        saldo -= movimentacoes[m].valor
       }
     })
 
@@ -32,14 +35,16 @@ exports.soma = functions.database
         return {
           entradas,
           saidas,
-          previsao_entrada: 0,
-          previsao_saida: 0,
+          /* previsao_entrada: 0,
+          previsao_saida: 0, */
+          saldo,
         }
       }
       return {
         ...currentValue,
-        entradas,
-        saidas,
+        entradas: entradas.toFixed(2),
+        saidas: saidas.toFixed(2),
+        saldo: saldo.toFixed(2),
       }
     })
   })
