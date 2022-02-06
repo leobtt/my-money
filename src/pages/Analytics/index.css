@@ -14,22 +14,24 @@
 .info {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   font-weight: 500;
   font-size: 0.9rem;
+  width: 100%;
 }
 
-.vertical {
+.first-part {
   display: flex;
   flex-direction: column;
+  margin-right: 30px !important;
+  width: 20%;
+}
+
+.thrid-part {
 }
 
 .second-part {
-  width: 50%;
-  margin-right: 30px !important;
-}
-
-.container {
-  margin: 2rem 0 !important;
+  margin: 2rem 2rem !important;
   text-align: center;
   width: 100%;
 }

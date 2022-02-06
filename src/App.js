@@ -5,6 +5,7 @@ import Header from './Components/Header'
 import Analytics from './pages/Analytics'
 import Login from './pages/Login'
 import Home from './pages/Home'
+import Transactions from './pages/Transactions'
 
 function App() {
   return (

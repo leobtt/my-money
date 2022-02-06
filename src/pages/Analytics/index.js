@@ -49,7 +49,7 @@ const Analytics = () => {
 
           <div className="info">
             {/* <div className="vertical"> */}
-            <div className="vertical">
+            <div className="first-part">
               <CardInfo
                 Icon={ArrowUpward}
                 title="Receita"
@@ -68,7 +68,7 @@ const Analytics = () => {
             </div>
             {/* </div> */}
 
-            <div className="container">
+            <div className="second-part">
               <h3 className="light">Transações</h3>
               {/* Item - Title - TransactionCard */}
               <div className="transaction-title">
@@ -102,7 +102,7 @@ const Analytics = () => {
             </div>
 
             {/* analytics */}
-            <div className="second-part">
+            <div className="thrid-part">
               <div className="card-chart">
                 <Graphics data={data} />
                 <Graphics data={charData} />
